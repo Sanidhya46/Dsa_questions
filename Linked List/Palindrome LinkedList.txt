@@ -1,0 +1,105 @@
+
+
+// 2 approach 
+
+// 1). By comparing the reverse of original linked list with original linked list 
+
+// 2). By finding the mid point using fast and slow pointer technique  .. O(n) ... if(fast pointer does not point to null it means the linked list is odd, and slow moves one step)... reverse the linked list O(n).. from slow onwards and compare O(n).. with it
+
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) {
+        if(!head || !head->next)  return true;
+        
+       
+    
+    ListNode* secondHalfClone = CloneList(head);
+    ListNode* reversed = reverse(secondHalfClone);
+   
+     ListNode* head2 = head;
+     ListNode* reversehead = reversed;
+    while(head2 && reversehead){
+        if(head2->val != reversehead->val)  return false;
+        head2 = head2->next;
+        reversehead = reversehead->next;
+    }
+    return true;
+    }
+    ListNode* CloneList(ListNode* head){
+        if(!head) return nullptr;
+        ListNode* newHead = new ListNode(head->val);
+        ListNode* cur = newHead;
+        head = head->next;
+
+        while(head){
+            cur->next =  new ListNode(head->val);
+            cur = cur->next;
+            head = head->next;
+        }
+          return newHead;
+    }
+  
+  
+    ListNode* reverse(ListNode* head){
+    ListNode* pre = nullptr;
+        ListNode* cur = head;
+        while(cur != nullptr) {
+            ListNode* next = cur->next;
+            cur->next = pre;
+            pre = cur;
+            cur = next;
+        }
+        return pre;
+
+    }
+};
+
+
+
+///
+
+
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) {
+        if(!head || !head->next)  return true;
+        
+        ListNode* slow = head;
+        ListNode* fast = head;
+
+        while(fast != nullptr && fast->next != nullptr){
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+
+        if(fast != nullptr){
+            slow->next;
+        }
+        
+    
+      ListNode*left = head;
+      ListNode*right = reverse(slow);
+
+      while(right != nullptr){
+        if(left->val != right->val)
+             return false;
+        left = left->next;
+        right = right->next;
+      }
+      return true;
+    }
+  
+    ListNode* reverse(ListNode* head){
+    ListNode* pre = nullptr;
+        ListNode* cur = head;
+        while(cur != nullptr) {
+            ListNode* next = cur->next;
+            cur->next = pre;
+            pre = cur;
+            cur = next;
+        }
+        return pre;
+
+    }
+};
+

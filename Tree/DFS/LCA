@@ -1,0 +1,68 @@
+//           LCA -- first common ancestor is called as lowest common ancestor ... O(N) Times
+//  there are multiple ways to find lowest common ancestors 
+//               *** By Finding the path from both node ***
+// 1). First stores the path of both node from root node -- (call dfs and store parent node for each node) 
+// 2). last common el will be the lca 
+
+// const int N = 1e5;
+// vector<int> g[N]; // tree
+// int par[N];
+
+// void dfs(int v, int p = -1){
+//     // for storing the parent 
+//     par[v] = p;
+//     for(int child : g[v]){
+//         if(child == p) continue;
+//         dfs(child,v);
+//     }
+// }
+// // it returns path from the node 
+//  // Function to construct path from node to root
+// vector<int> path(int v) {
+//     vector<int> ans;
+//     while (v != -1) {
+//         ans.push_back(v);
+//         v = par[v];
+//     }
+//     reverse(ans.begin(), ans.end());
+//     return ans;
+// }
+
+// int main() {
+//     int n; // number of nodes
+//     cin >> n;
+
+//     // Reading edges
+//     for (int i = 0; i < n - 1; i++) {
+//         int v1, v2;
+//         cin >> v1 >> v2;
+//         g[v1].push_back(v2);
+//         g[v2].push_back(v1);
+//     }
+
+//     int x, y;
+//     cin >> x >> y;
+
+//     dfs(1); // Assuming 1 is the root of the tree
+
+//     vector<int> path_x = path(x);
+//     vector<int> path_y = path(y);
+
+//     // Finding the Lowest Common Ancestor (LCA)
+//     int min_ln = min(path_x.size(), path_y.size());
+//     int lca = -1;
+//     for (int i = 0; i < min_ln; i++) {
+//         if (path_x[i] == path_y[i]) {
+//             lca = path_x[i];
+//         } else {
+//             break;
+//         }
+//     }
+
+//     cout << lca << endl;
+//     return 0;
+// }
+
+//  Others method .... find the distance between two node and go upper for the difference between their height and go one by one step to the top and fist common node will be the lca O(n)
+//  O(log n) - binary offlifting 
+// 

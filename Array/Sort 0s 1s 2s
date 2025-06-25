@@ -1,0 +1,16 @@
+//                                    Dutch National Flag algorithm    .....    O(N)
+// 1). nums[0]...nums[low - 1] : This part should consist of all zeroes.
+//     nums[low]...nums[mid - 1] : This part should consist of all ones.
+//     nums[mid]...nums[end of array] : This part should consist of all twos. 
+// 2). adjust mid and swap with mid..
+
+class Solution {
+public:
+        void sortColors(vector<int>& nums) {
+    int low = 0, mid = 0, high = nums.size() - 1;
+    while (mid <= high)
+        if (nums[mid] == 0) swap(nums[mid++], nums[low++]);
+        else if (nums[mid] == 1) mid++;
+        else swap(nums[mid], nums[high--]);
+}
+};

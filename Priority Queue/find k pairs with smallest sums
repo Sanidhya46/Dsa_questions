@@ -1,0 +1,49 @@
+
+// 1). Make the min heap while using the comparator function with the setup of their characteristics
+// 2). The heap is ordered and the element is push under them in the order of nums1[i]  nums[2] and 0;
+// 3). while extracting each pair one by one also add one pair to it.
+
+#include <vector>
+#include <queue>
+
+using namespace std;
+
+class Solution {
+public:
+    vector<vector<int>> kSmallestPairs(vector<int>& nums1, vector<int>& nums2, int k) {
+
+        // 1). Min priority queue (min-heap) for storing pairs {sum, index_in_nums2}
+        // 2). The heap is ordered and the element is push under them in the order of nums1[i]  nums[2] and 0;
+        // 2). while extracting each pair one by one also add one pair to it.
+
+
+        auto cmp = [](const vector<int>& a, const vector<int>& b){
+            return (a[0] + a[1]) > (b[0] + b[1]);
+        };
+        priority_queue<vector<int>, vector<vector<int>>, decltype(cmp)> pq(cmp);
+        
+
+           // first check all the elements of first array with the first element of 2nd array and then ... and then all first element with the second element ...
+         // Initialize the priority queue 
+       // 
+         for(int i = 0; i<nums1.size(); i++){
+            pq.push({nums1[i], nums2[0], 0});
+         }
+
+         vector<vector<int>> res;
+
+         while(!pq.empty() && k > 0){
+            vector<int> cur = pq.top();
+            pq.pop();
+            k--;
+          // add the next node in the linked list to the priority queue
+
+          int next_index = cur[2] + 1;  // pointing to next index of 2nd array
+          if(next_index < nums2.size()){
+            pq.push({cur[0],nums2[next_index], next_index});
+          }
+          res.push_back({cur[0], cur[1]});
+         }
+         return res;
+    }
+};

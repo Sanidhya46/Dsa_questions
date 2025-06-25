@@ -1,0 +1,32 @@
+Step 1 → Initialization
+ Step 2 → Processing Boxes Layer-wise
+    If its locked we simply push it in nextBoxes for later and move ahead with our traversal.
+    Else we set foundOpenable to true and append all the boxes inside containedBoxes[boxId] into nextBoxes
+    Loop through each keyId in keys[boxId] and do vis[keyId] = 1 to mark those newly discovered boxes as unlocked.
+    And add candies[boxId] to totalCandies at the end.
+
+    ps - https://leetcode.com/problems/maximum-candies-you-can-get-from-boxes/description/?envType=daily-question&envId=2025-06-03
+    
+class Solution {
+public:
+    int maxCandies(vector<int>& vis, vector<int>& candies, vector<vector<int>>& keys, vector<vector<int>>& containedBoxes, vector<int>& initialBoxes) {
+        bool foundOpenable = true;
+        int totalCandies = 0;
+        while (!initialBoxes.empty() && foundOpenable) {
+            foundOpenable = false;
+            vector<int> nextBoxes;
+            for (int boxId : initialBoxes) {
+                if (vis[boxId]) {
+                    foundOpenable = true;
+                    nextBoxes.insert(end(nextBoxes), begin(containedBoxes[boxId]), end(containedBoxes[boxId]));
+                    for (int keyId : keys[boxId]) vis[keyId] = 1;
+                    totalCandies += candies[boxId];
+                } else {
+                    nextBoxes.push_back(boxId);
+                }
+            }
+            swap(initialBoxes, nextBoxes);
+        }
+        return totalCandies;
+    }
+};

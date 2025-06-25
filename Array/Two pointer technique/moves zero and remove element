@@ -1,0 +1,22 @@
+// 1).  remove zero using remove element function using fast and slow pointer approach.
+// 2).  moves zero at end means assigning left elements with zero.
+
+
+
+#include <bits/stdc++.h>
+using namespace std;
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) {
+        // remove all 0s from nums, return the length of the array without 0s
+        int p = removeElement(nums, 0);
+        // assign elements of nums[p..] to 0
+        for (; p < nums.size(); p++) {
+            nums[p] = 0;
+        }
+    }
+
+    int removeElement(vector<int>& nums, int val) {
+        // see the previous code implementation
+    }
+};

@@ -1,0 +1,64 @@
+//                       Dfs Template 
+// 
+// i). make dfs , -- 
+// ii). mark the vertex visited .. vis[vertex] = true..  
+// iii) if child already visited while traversing continue  
+// iv). call dfs 
+
+// const int N = 1e3+10;
+vector<int> g[N];
+bool vis[N];
+
+void dfs(int vertex){
+    // take action on vertex after entering the vertex 
+    vis[vertex] = true;  // mark the visited  
+
+    for(int child : g[vertex]){
+      // take action on child before entering the child 
+
+      if(vis[child]) continue;
+      dfs(child);
+      // take action on child after exiting the child node 
+    }
+    // take action on vertex after exiting the vertex
+   
+}
+
+
+//                           DFS 
+
+const int N = 1e3+10;
+vector<int> g[N];
+bool vis[N];
+
+void dfs(int vertex){
+    // before entering the vertex 
+    vis[vertex] = true;  // mark the visited  
+       // if vis[vertex] = continue;
+       // if vis[vertex] = return;
+      cout << vertex << endl; 
+    for(int child : g[vertex]){
+        cout << " par " << vertex << " child " << child << endl;
+      // before entering the child 
+      if(vis[child]) continue;
+      dfs(child);
+      // after exiting the child node 
+    }
+    // after exiting the vertex
+    // return isLoopExists;
+}
+//   Time complexity -- for for loop -- recursion on edges -- O(2*E)
+//   Total Time complexity -- O(V + E)
+
+int main(){
+    int n , m;
+    cin >> n >> m;
+    for(int i =0; i<m; i++){
+    int v1, v2;
+    cin >> v1 >> v2;
+    g[v1].push_back(v2);
+    g[v2].push_back(v1);
+   
+    }
+    dfs(1);
+}

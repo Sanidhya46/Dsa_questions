@@ -1,0 +1,46 @@
+//        Detected Cycle in the Graph - 
+//   Two thing --
+//  1). before entring the child if child is visited and it is parent continue.
+//  2). other vise if child is visited marks true and check loop is exists for all child vertex or not 
+
+#include<bits/stdc++.h>
+using namespace std;
+
+const int N = 1e3;
+vector<int> g[N];
+bool vis[N];
+bool dfs(int vertex, int par){   // par is for to keep record where it comes 
+    // take action on the vertex after entering the vertex 
+     vis[vertex] = true;
+     bool isLoopExists = false; 
+    for(int child : g[vertex]){
+        if(vis[child] && child == par) continue;
+        if(vis[child]) return true; 
+       isLoopExists |= dfs(child , vertex);  // it checks all the vertexes if any return true return true and you do and for if all return false return false  // now vertex is parent 
+    }
+    return isLoopExists;
+}
+
+
+int main(){
+    int n, e;
+    cin >> n >> e;
+
+    for(int i =0; i< e; i++){
+        int v1, v2;
+        cin >> v1 >> v2; 
+        g[v1].push_back(v2);
+        g[v2].push_back(v1);
+
+    }
+     bool isLoopExists = false;
+    for(int i = 1; i <= n; i++){
+        if(vis[i]) continue;
+       if(dfs(i , 0)){   // is loop exists in any node 
+        isLoopExists = true; 
+        break; 
+       }
+
+    }
+    cout << isLoopExists << endl;
+}

@@ -1,0 +1,98 @@
+//                 Deletion of Edge O(n)  -- 1). first precompute whole sum of the graph and subtract the precompute sum of one part ... other part could be anything like set of prime numbers or something
+const int N = 1e3+10;
+const int M = 1e3+10;
+vector<int> g[N];
+bool vis[N];
+int subtree_sum[N];
+int val[N];
+
+void dfs(int vertex, int par){
+    // take action on vertex after entering the vertex 
+    
+    subtree_sum[vertex] + val[vertex];
+    for(int child : g[vertex]){
+      // take action on child before entering the child 
+       if(child == par) continue;
+      
+      dfs(child,vertex);
+      subtree_sum[vertex] += subtree_sum[child];
+      // take action on child after exiting the child node 
+    }
+    // take action on vertex after exiting the vertex
+   
+}
+
+int main(){
+    int n , m;
+    cin >> n >> m;
+    for(int i =0; i<m; i++){
+    int v1, v2;
+    cin >> v1 >> v2;
+    g[v1].push_back(v2);
+    g[v2].push_back(v1);
+   
+    }
+    dfs(1, 0);
+    long long ans = 0;
+    for(int i =2; i<=n; i++){
+        int part1 = subtree_sum[i];
+        int part2 = subtree_sum[1] - part1;
+        ans = max(ans,(part1*1LL*part2)% M);
+    }
+    cout << ans << endl;
+}
+
+//
+
+// https://www.interviewbit.com/problems/delete-edge/
+
+const int N = 1e5+10;
+const int MOD = 1e9+7; // Use large prime for modulo
+
+vector<int> g[N];
+int subtree_sum[N];
+int val[N]; // Stores the value of each node
+
+void dfs(int vertex, int parent) {
+    subtree_sum[vertex] = val[vertex - 1]; // Use val[vertex - 1] since nodes are 1-indexed
+    for(int child : g[vertex]) {
+        if(child == parent) continue;
+        dfs(child, vertex);
+        subtree_sum[vertex] += subtree_sum[child];
+    }
+}
+
+int Solution::deleteEdge(vector<int> &A, vector<vector<int>> &B) {
+    int n = A.size(); // Number of nodes
+    
+    // Reset global variables
+    for(int i = 0; i <= n; i++) {
+        g[i].clear();
+        subtree_sum[i] = 0;
+    }
+
+    // Store node values
+    for(int i = 0; i < n; i++) {   //just copy node values 
+        val[i] = A[i];
+    }
+
+    // Build the tree
+    for(auto edge : B) {
+        g[edge[0]].push_back(edge[1]);
+        g[edge[1]].push_back(edge[0]);
+    }
+
+    // Run DFS to calculate subtree sums
+    dfs(1, 0);
+
+    // Find maximum product by virtually cutting each edge
+    long long total = subtree_sum[1];
+    long long ans = 0;
+    for(int i = 2; i <= n; i++) {
+        long long part1 = subtree_sum[i];
+        long long part2 = total - part1;
+        ans = max(ans, (part1 * part2) % MOD);
+    }
+
+    return (int)(ans % MOD);
+}

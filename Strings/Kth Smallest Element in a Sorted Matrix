@@ -1,0 +1,3 @@
+// 1).  use the merge sorted list technique insert the first element of all of the arrays in priority queue
+// 2).  make the flag for inserting 2nd element of each arrays 
+// 3).  pop the top element and push the next node in the list for k times 

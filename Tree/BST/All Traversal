@@ -1,0 +1,65 @@
+// 1). dfs -- recursive traversal   bfs -- level order traversal   
+//                    
+//                             Recursive traversal (preorder inorder postorder) -- uses stack
+// 1). make the function with pointer root whenever root is null return and call the function traverse right and choose position of root val based on traversal method
+// NOte - In postorder traversal it assign values after checking both pointers node.
+// 1). dfs -- recursive traversal   bfs -- level order traversal
+// #include<bits/stdc++.h>
+// using namespace std;
+// class Treenode{
+// public:
+//     int val;
+//     Treenode* left;
+//     Treenode* right;
+
+//     Treenode(int x) : val(x) , left(nullptr) , right(nullptr) {}
+    
+//     void traverse(Treenode* root){  
+//         if(root == nullptr){
+//             return; 
+//         }
+//         // preorder traversal
+//         cout << root->val; 
+//           traverse(root->left);
+//           // inorder traversal
+//           traverse(root->right);
+//           // postorder traversal 
+//     }
+// };
+
+// int main(){
+//     Treenode* root = new Treenode(1);
+//      root->left = new Treenode(2);
+//      root->right = new Treenode(3);
+//      root->left->left = new Treenode(5);
+//      root->left->right = new Treenode(6);
+
+//      // call traversal 
+//      root->traverse(root);
+//      return 0;
+// }
+
+//                           Linear order traversal(3 types) 
+
+// i). make the tree traversal function  ii). extracting front element in queue putting their left child and right child in queue
+// void levelOrderTraverse(TreeNode* root) {
+//     if (root == nullptr) {
+//         return;
+//     }
+//     std::queue<TreeNode*> q;
+//     q.push(root);
+//     while (!q.empty()) {
+//         TreeNode* cur = q.front();
+//         q.pop();
+//         // visit the cur node
+//         std::cout << cur->val << std::endl;
+        
+//         // add the left and right children of cur to the queue
+//         if (cur->left != nullptr) {
+//             q.push(cur->left);
+//         }
+//         if (cur->right != nullptr) {
+//             q.push(cur->right);
+//         }
+//     }
+// }

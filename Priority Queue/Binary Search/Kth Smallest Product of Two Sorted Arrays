@@ -1,0 +1,86 @@
+
+// 1). Separate Positive and Negative Numbers
+// 2). Count Negative Products
+// 3). Decide Whether the Answer is Negative or Positive
+// 4). Convert Negative Search to Positive
+// 5). Binary Search on Product Values
+// 6). Find Final Answer
+
+
+class Solution {
+ public:
+  // Main function to find the k-th smallest product from all possible pairs of nums1[i] * nums2[j]
+  long long kthSmallestProduct(vector<int>& nums1, vector<int>& nums2, long long k) {
+    vector<int> A1; // Negative values from nums1 (converted to positive)
+    vector<int> A2; // Positive values from nums1
+    vector<int> B1; // Negative values from nums2 (converted to positive)
+    vector<int> B2; // Positive values from nums2
+
+    // Separate each input array into negative and positive values
+    seperate(nums1, A1, A2);
+    seperate(nums2, B1, B2);
+
+    // Count of total negative products:
+    // Negative * Positive or Positive * Negative
+    const long negCount = A1.size() * B2.size() + A2.size() * B1.size();
+    int sign = 1; // Default sign is positive
+
+    if (k > negCount) {
+      // If k-th product lies in the positive numbers
+      k -= negCount; // Adjust k to count among positives
+    } else {
+      // If k-th product lies in the negative numbers
+      // Adjust k to count from the largest (least negative) value
+      k = negCount - k + 1;
+      sign = -1; // Final answer will be negative
+
+      // Swap to search the absolute value of negative products
+      swap(B1, B2);
+    }
+
+    // Binary search over the absolute value of product
+    long l = 0;
+    long r = 1e10; // Upper bound for product values
+
+    while (l < r) {
+      const long m = (l + r) / 2;
+
+      // Count how many products are <= m
+      long count = numProductNoGreaterThan(A1, B1, m) + numProductNoGreaterThan(A2, B2, m);
+
+      if (count >= k)
+        r = m; // We can include m
+      else
+        l = m + 1; // Increase lower bound
+    }
+
+    return sign * l; // Apply sign to the result
+  }
+
+ private:
+  // Helper function to separate vector into negative and positive parts
+  void seperate(const vector<int>& A, vector<int>& A1, vector<int>& A2) {
+    for (const int a : A)
+      if (a < 0)
+        A1.push_back(-a); // Store negative as positive
+      else
+        A2.push_back(a); // Keep positive as is
+
+    reverse(begin(A1), end(A1)); // Reverse for easier processing in two-pointer search
+  }
+
+  // Count how many products a * b are <= m, where a in A and b in B
+  long numProductNoGreaterThan(const vector<int>& A, const vector<int>& B, long m) {
+    long count = 0;
+    int j = B.size() - 1;
+
+    // For each a in A, use two-pointer technique to count how many b's satisfy a * b <= m
+    for (const long a : A) {
+      while (j >= 0 && a * (long long)B[j] > m)
+        --j;
+      count += j + 1;
+    }
+
+    return count;
+  }
+};

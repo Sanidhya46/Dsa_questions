@@ -1,0 +1,45 @@
+
+         class Solution {
+public:
+    bool checkEqualPartitions(vector<int>& nums, long long target) {
+        int n = nums.size();
+        int total = 1 << n; // Total number of subsets: 2^n
+
+        // Loop over all possible subsets except the empty set and the full set
+        for (int mask = 1; mask < total - 1; ++mask) {
+            long long product1 = 1, product2 = 1;
+            bool valid1 = true, valid2 = true;
+
+            // First subset: elements included in this bitmask
+            for (int i = 0; i < n; ++i) {
+                if (mask & (1 << i)) { // If the i-th bit is set in mask, include nums[i] in subset1
+                    product1 *= nums[i];
+                    if (product1 > target) { // Early exit if product exceeds target
+                        valid1 = false;
+                        break;
+                    }
+                }
+            }
+
+            // If the product is not valid or doesn't match the target, skip
+            if (!valid1 || product1 != target) continue;
+
+            // Second subset: elements not included in this bitmask
+            for (int i = 0; i < n; ++i) {
+                if (!(mask & (1 << i))) { // If the i-th bit is not set, include nums[i] in subset2
+                    product2 *= nums[i];
+                    if (product2 > target) { // Early exit if product exceeds target
+                        valid2 = false;
+                        break;
+                    }
+                }
+            }
+
+            // If both subsets have a valid product equal to target, return true
+            if (valid2 && product2 == target) return true;
+        }
+
+        // If no valid partition found, return false
+        return false;
+    }
+};©leetcode

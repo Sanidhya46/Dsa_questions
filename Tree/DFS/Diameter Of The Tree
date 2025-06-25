@@ -1,0 +1,59 @@
+                                //  Diameter of tree  
+// 1). maximum NO. of edges b/w two vertices == diameter between vertices == max possible path b/w two vertices in tree
+// 2). Bruteforce -- calculate the maximum of all the depths from one node to the other node by imagining each node is root node 
+// 3). Optimise -- i). With any root find the maximum depth node  ii).find maximum depth node with that node .. run the dfs form maximum depth node 
+//    
+
+
+const int N = 1e5;
+vector<int> g[N];
+int depth[N];
+void dfs(int v, int par=-1){
+     for(int child: g[v]){
+       
+        if(child == par) continue;
+        depth[child] = depth[v] + 1;
+        dfs(child,v);
+
+     }
+}
+
+
+int main(){
+    int n; // edges 
+    cin >> n;
+
+    // no. of the edges no. of times 
+    for(int i = 0; i< n-1; i++){
+        int v1, v2;
+        cin >> v1 >> v2;
+        g[v1].push_back(v2);
+        g[v2].push_back(v1);
+    }
+    dfs(1);
+
+    int mx_depth = -1;
+    int mx_d_node;
+    for(int i =1; i<=n; i++){
+        if(mx_depth < depth[i]){
+            mx_depth = depth[i];
+            // now we get the node with maximum depth
+            mx_d_node = i;
+        }
+        // depth of array is resseted;
+        depth[i] = 0;
+    }
+    mx_depth = -1;
+    dfs(mx_d_node);
+    for(int i =1; i<=n; i++){
+        if(mx_depth < depth[i]){
+            mx_depth = depth[i];
+            // now we get the node with maximum depth
+        
+        }
+        // depth of array is resseted;
+      
+    }
+    cout << mx_depth << endl;
+
+}

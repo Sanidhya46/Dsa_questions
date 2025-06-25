@@ -1,0 +1,29 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class Solution {
+public:
+    int maxSumDistinctTriplet(vector<int>& x, vector<int>& y) {
+        
+        unordered_map <int , int> map;
+
+            for(int i = 0; i<x.size(); i++){
+                map[x[i]] = max(map[x[i]], y[i]);
+                
+            }
+
+             if(map.size()  <  3) return -1;
+
+              vector<int> max; 
+                for(auto&pair : map){
+                    max.push_back(pair.second);
+                }
+
+            sort(max.begin(), max.end(), greater<int>());
+
+
+            return max[0] + max[1] + max[2];
+             
+        };
+    
+};

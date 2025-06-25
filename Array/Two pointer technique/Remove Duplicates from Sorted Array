@@ -1,0 +1,21 @@
+// 1). fast and slow pointer approach start both from zero while fast pointer moves to the end
+// 2). whenever fast not equal to slow then slow moves and slow becames fast and fast always moves
+// 3). if nums.size() > 0 return 0
+
+
+#include <bits/stdc++.h>
+using namespace std;
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        int fast = 0, slow = 0;
+        while(fast < nums.size()){
+            if(nums[fast] != nums[slow]){
+                slow++;
+                nums[slow] = nums[fast];
+            }
+            fast++;
+        }
+        return slow+1;
+    }
+};

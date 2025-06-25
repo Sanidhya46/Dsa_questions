@@ -1,0 +1,33 @@
+this is brute force approach ...
+
+
+
+
+class Solution {
+public:
+    long long kthSmallestProduct(vector<int>& nums1, vector<int>& nums2, long long k) {
+        auto cmp = [](long long a, long long b){
+           return a > b; 
+        };
+        priority_queue<long long, vector<long long>, decltype(cmp)> pq(cmp);
+        
+        for(long long i  = 0; i<nums1.size(); i++){
+            for(long long j = 0; j<nums2.size(); j++)
+           pq.push(1LL * nums1[i]*nums2[j]);
+        }
+        int count = 0;
+        long long kthElement = 0;
+        while (!pq.empty()) {
+    count++;
+    auto current = pq.top();
+    pq.pop();
+    
+    if (count == k) {
+         kthElement = current;
+        break;
+    }
+}
+   return kthElement;
+
+    }
+};

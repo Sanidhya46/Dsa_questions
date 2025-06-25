@@ -1,0 +1,18 @@
+#include <bits/stdc++.h>
+using namespace std;
+// 1). fast and slow start from 0 whenever fast != val then slow will becames fast then slow moves and fast always moves
+
+class Solution {
+public:
+    int removeElement(vector<int>& nums, int val) {
+        int fast = 0, slow = 0;
+        while (fast < nums.size()) {
+            if (nums[fast] != val) {
+                nums[slow] = nums[fast];
+                slow++;
+            }
+            fast++;
+        }
+        return slow;
+    }
+};

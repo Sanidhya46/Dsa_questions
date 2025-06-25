@@ -1,0 +1,29 @@
+#include<bits/stdc++.h>
+using namespace std;
+// unstable sorting -- relative position of identical elements must remain unchanged.
+int main(){
+void sort(vector<int>& nums){
+    int n = nums.size();
+    // sortedIndex is a dividing line
+    // elements with index < sortedIndex are all sorted
+    // elements with index >= sortedIndex are all unsorted
+    // initialize to 0, meaning the entire array is unsorted
+    int sortedIndex = 0;
+    while (sortedIndex < n) {
+        // find the minimum value in the unsorted part [sortedIndex, n)
+        int minIndex = sortedIndex;
+        for (int i = sortedIndex + 1; i < n; i++) {
+            if (nums[i] < nums[minIndex]) {
+                minIndex = i;
+            }
+        }
+        // swap the minimum value with the element at sortedIndex
+        int tmp = nums[sortedIndex];
+        nums[sortedIndex] = nums[minIndex];
+        nums[minIndex] = tmp;
+
+        // move sortedIndex forward by one
+        sortedIndex++;
+    }
+}
+}

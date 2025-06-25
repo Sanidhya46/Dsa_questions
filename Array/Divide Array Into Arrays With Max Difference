@@ -1,0 +1,27 @@
+// 1). Sort the array 
+// 2). Initialize an empty result list 
+// 3). Traverse the array in steps of 3 
+// 4). For each groups of 3 elements calcualte the difference of the maximum and minimum
+// 5). if difference is more than k return empty other wise push the triplets
+
+// class Solution {
+// public:
+//     vector<vector<int>> divideArray(vector<int>& nums, int k) {
+//           sort(nums.begin(), nums.end());
+
+//           vector<vector<int>> result;
+
+//         for(int i = 0; i<nums.size(); i+= 3){
+//           int a = nums[i];
+//           int b = nums[i+1];
+//           int c = nums[i+2];
+
+//           if(c - a > k){
+//             return {};
+//           }
+//           result.push_back({a,b,c});
+//     }
+//     return result;
+//     }
+    
+// };

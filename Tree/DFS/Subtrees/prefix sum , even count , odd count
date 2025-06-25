@@ -1,0 +1,57 @@
+                     //          Dfs subtree questions
+
+
+//*** */ For prefix sum and even count edit two sections first after entering the vertex add current vertex or increase count and after exiting the node add current child node
+// we only add when to come from bottom to top 
+// for counting of even number put even number condition after entring the vertex and add current vertexes ... and in after exiting the child node add current child in even_ct
+// NOte - for calculating even and sum of subtree first identify parent node and put dfs on it 
+// Questions print subtree sum of v & number of even numbers 
+// const int N = 1e5;
+// vector<int> g[N];
+// int depth[N];
+// int height[N];
+// vector<int> subtree_sum(N,0);
+// // int val[N];
+// vector<int> even_ct(N,0);
+
+// void dfs(int vertex, int par=0){
+//     // increase the count of even_ct[vertex] for joint vertex if it is even 
+//     if(vertex %  2 == 0) even_ct[vertex]++;
+//     subtree_sum[vertex] += vertex;
+//     for(int child : g[vertex]){
+//      // for adding the current joint vertex for each node 
+//     //    subtree_sum[vertex] += vertex;
+//        // for val of vertex it becames val[vertex]
+   
+//       if(child == par) continue;
+       
+//     dfs(child, vertex);
+//        subtree_sum[vertex] += subtree_sum[child];
+//        even_ct[vertex] += even_ct[child];
+//     }
+// }
+
+// int main(){
+//     int n; // edges 
+//     cin >> n;
+
+//     // no. of the edges no. of times 
+//     for(int i = 0; i< n-1; i++){
+//         int v1, v2;
+//         cin >> v1 >> v2;
+//         g[v1].push_back(v2);
+//         g[v2].push_back(v1);
+//     }
+//    dfs(1);  // default value is 0 for parent 
+//     // int q;
+//     // while(q--){
+//     //    int v;
+//     //    cin >> v;
+//     //    cout << subtree_sum[v] << even_ct[v] << endl;
+//     // }
+//     for(int i =1; i<=n; i++){
+    
+//         cout << subtree_sum[i] <<" " << even_ct[i] << endl;
+//      }
+    
+// }

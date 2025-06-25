@@ -1,0 +1,33 @@
+// 1).  use the merge sorted list technique insert the first element of all of the arrays in priority queue
+// 2).  make the flag for inserting 2nd element of each arrays 
+// 3).  pop the top element and push the next node in the list for k times 
+
+// class Solution {
+// public:
+//     int kthSmallest(vector<vector<int>>& matrix, int k) {
+        
+//   auto cmp = [] (const vector<int>& a , const vector<int>& b){
+//     return a[0] > b[0];
+//   };
+
+//   priority_queue<vector<int>, vector<vector<int>>, decltype(cmp) > pq(cmp);
+
+//   for(int i = 0;i<matrix.size(); i++){
+//     pq.push({matrix[i][0], i , 0});
+//   }
+
+//   int res = -1;
+//   while(!pq.empty() && k > 0){
+//     vector<int> cur = pq.top();
+//     pq.pop();
+//     res = cur[0];
+//     k--;
+
+//     int i = cur[1], j = cur[2];
+//     if(j+1 < matrix[i].size()){
+//         pq.push({matrix[i][j+1], i , j+1});
+//     }
+//   }
+//   return res;
+//     }
+// };

@@ -1,0 +1,58 @@
+        // 1). Connected components -- 
+// 1st case - count dfs run is equal to no. of connected components
+// 2nd case two things -
+// 1). make two array for storing connected components and current node 
+// 2). after entering the vertex put the current vertex in connected component 
+
+ T. C = O(n + e)
+const int N = 1e3;
+vector<int> g[N];
+bool vis[N];
+
+vector<vector<int>> cc;    // connected components 
+vector<int> current_cc;    // current node 
+
+void dfs(int vertex){
+    // take action on the vertex after entering the vertex 
+    vis[vertex] = true;
+ // Note -- when we making entry mark it as current component 
+    current_cc.push_back(vertex);
+    for( int child : g[vertex]){
+    if(vis[child]) continue;
+    // take action on child before entering the child node 
+    dfs(child);
+    }
+    // take action aftering leaving the child 
+}
+
+// O(n + e)
+int main(){
+    int n , e;  // vertexes and edges 
+    cin >> n >> e;
+
+    // input of graph // run for the edges no. of times 
+    for(int i = 0; i< e; i++){
+        int v1, v2;
+        cin >> v1 >> v2;
+        g[v1].push_back(v2);
+        g[v2].push_back(v1);
+    }
+
+   int count = 0;    
+   for(int i =1; i<=n; i++){   // run the loop for every edges 
+      if(vis[i]) continue;  // check if node already visited skip
+      current_cc.clear();  // clear previous connnected node 
+      dfs(i);  // call the dfs for that node 
+      cc.push_back(current_cc);
+      count++;
+   }
+   cout << cc.size() << endl;
+   for(auto c_cc : cc){
+    for(int vertex : c_cc){
+        cout << vertex << " ";
+    }
+    cout << endl; 
+   }
+}
+
+
