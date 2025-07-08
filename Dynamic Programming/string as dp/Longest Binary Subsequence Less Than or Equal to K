@@ -1,0 +1,50 @@
+// 1). count the number of zeroes ...
+// 2). start from end and whenever 1 occured value + pow > k then continue ... and add value in pow and count ones
+// 3). continuously pushing pow to left and when pow > k break
+// 4). return count zeroes + ones 
+
+class Solution {
+public:
+    int longestSubsequence(string s, int k) {
+        int n = s.size(); 
+        
+        int zeroes = 0;         // Step 1: Count number of '0's in the string
+        int pow = 1;            // Will be used as powers of 2 (starting from 2^0)
+        long long value = 0;    // Total binary value of selected '1's
+        int ones = 0;           // Number of selected '1's
+
+        // Step 1: Count all zeroes (they don't add value in binary)
+        for(char c : s){
+            if(c == '0'){
+                zeroes++;
+            }
+        }
+
+        // Step 2: Iterate from the end (LSB to MSB)
+        for(int i = n - 1; i >= 0; i--){
+            if(s[i] == '1'){
+                // Step 2: If adding current power of 2 makes value > k, skip this '1'
+                if(value + pow > k){
+                    continue;
+                }
+
+                // Otherwise, include this '1'
+                value += pow;
+                ones++;
+            }
+
+            // Step 3: Move to next power of 2 (i.e., shift left)
+            pow <<= 1;
+
+            // Optimization: If pow > k, any further '1's will exceed limit → break early
+            if(pow > k) break;
+        }
+
+        // Step 4: Total length of longest subsequence = selected zeroes + valid '1's
+        return zeroes + ones;
+    }
+};
+
+
+
+

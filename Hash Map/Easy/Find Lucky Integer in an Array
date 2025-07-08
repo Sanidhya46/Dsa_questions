@@ -1,0 +1,30 @@
+1). make the hash map
+2). compare the number with frequency and find the maximum of all number
+
+class Solution {
+public:
+    int findLucky(vector<int>& arr) {
+        // Step 1: Create a hashmap to store the frequency of each element
+        unordered_map<int, int> mp;
+        for (int i = 0; i < arr.size(); i++) {
+            mp[arr[i]]++;  // Count occurrences of each number
+        }
+
+        int maxLucky = -1;  // Initialize the result to -1 (in case no lucky number is found)
+
+        // Step 2: Traverse the map to find lucky numbers
+        for (auto& pair : mp) {
+            int number = pair.first;
+            int frequency = pair.second;
+
+            // Step 3: Check if the number is equal to its frequency (lucky number)
+            if (number == frequency) {
+                // Step 4: Keep track of the maximum lucky number found
+                maxLucky = max(maxLucky, number);
+            }
+        }
+
+        // Step 5: Return the largest lucky number, or -1 if none was found
+        return maxLucky;
+    }
+};

@@ -1,7 +1,5 @@
-this is brute force approach ...
-
-
-
+// this is brute force approach ...
+// 1). make priority queue .... find product of all both array and push into min heap and extract element of exact kth time
 
 class Solution {
 public:

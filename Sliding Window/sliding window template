@@ -1,0 +1,38 @@
+// Pseudocode framework of sliding window algorithm
+void slidingWindow(string s) {
+    // Use an appropriate data structure to record the data
+    // in the window, varying with the specific scenario
+    // For instance, if I want to record the frequency
+    // of elements in the window, I would use a map
+    // If I want to record the sum of elements in the window, I can simply use an int
+    auto window = ...
+
+    int left = 0, right = 0;
+    while (right < s.size()) {
+        // c is the character that will be entering the window
+        char c = s[right];
+        window.add(c);
+        // Expand the window
+        right++;
+
+        // Perform a series of updates to the data within the window
+        ...
+
+        // *** position of debug output ***
+        printf("window: [%d, %d)\n", left, right);
+        // Note that printing should be avoided in the final solution code
+        // Because IO operations are time-consuming and may cause timeouts
+
+        // Determine whether the left side of the window needs to shrink
+        while (window needs shrink) {
+            // d is the character that will be removed from the window
+            char d = s[left];
+            window.remove(d);
+            // Shrink the window
+            left++;
+
+            // Perform a series of updates to the data within the window
+            ...
+        }
+    }
+}

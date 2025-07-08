@@ -1,0 +1,68 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+// This function merges two sorted subarrays: nums[lo..mid] and nums[mid+1..hi]
+void merge(vector<int>& nums, int lo, int mid, int hi) {
+    // Create a temporary copy of the current array to refer to during merging
+    vector<int> temp(nums.begin(), nums.end());
+
+    int i = lo;        // Pointer for the left subarray
+    int j = mid + 1;   // Pointer for the right subarray
+
+    // Merge the two halves back into the original array (nums)
+    for (int p = lo; p <= hi; p++) {
+        if (i > mid) {
+            // Left half is exhausted, take from right half
+            nums[p] = temp[j++];
+        } else if (j > hi) {
+            // Right half is exhausted, take from left half
+            nums[p] = temp[i++];
+        } else if (temp[i] > temp[j]) {
+            // If right half element is smaller, place it in sorted position
+            nums[p] = temp[j++];
+        } else {
+            // Otherwise, take from left half
+            nums[p] = temp[i++];
+        }
+    }
+}
+
+// Recursive function to divide the array and sort each half
+void sort(vector<int>& nums, int lo, int hi) {
+    // Base case: single element or invalid range doesn't need sorting
+    if (lo >= hi) return;
+
+    // Find the middle index to split the array
+    int mid = lo + (hi - lo) / 2;
+
+    // Recursively sort the left half of the array
+    sort(nums, lo, mid);
+
+    // Recursively sort the right half of the array
+    sort(nums, mid + 1, hi);
+
+    // Merge the two sorted halves
+    merge(nums, lo, mid, hi);
+}
+
+// Public interface to start merge sort on the full array
+void mergeSort(vector<int>& nums) {
+    sort(nums, 0, nums.size() - 1);
+}
+
+// Main function to test the merge sort implementation
+int main() {
+    // Define a sample unsorted array
+    vector<int> nums = {3, 7, 5, 2, 6, 4, 5, 1};
+
+    // Sort the array using merge sort
+    mergeSort(nums);
+
+    // Print the sorted array
+    for (int n : nums) {
+        cout << n << " ";
+    }
+
+    return 0;
+}
